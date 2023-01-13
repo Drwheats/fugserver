@@ -1,5 +1,4 @@
 const express = require("express");
-const cors = require('cors');
 // server is 3001 for local, 4k for vercel.
 const PORT = process.env.PORT || 4000;
 const bodyParser = require("body-parser");
@@ -9,6 +8,7 @@ const app = express();
 const highScores = require(pathToJSON);
 const pathToImages = './images/Trollface_non-free.png.webp'
 const cors = require('cors');
+
 app.use(cors({
   origin: '*'
 }));
