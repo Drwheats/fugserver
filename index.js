@@ -7,23 +7,29 @@ const pathToJSON = './highscores.json'
 
 const highScores = require(pathToJSON);
 const pathToImages = './images/Trollface_non-free.png.webp'
-var cors = require('cors');
-var app = express();
-app.use(cors());
 
-app.all('/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
+
+var cors = require('cors')
+var app = express();
+
 // Rate Limiter Below. Needs to be tweaked and must be turned off for testing, and searchbar is broken ofc.
-// const limiter = require("./middleware/rateLimiter");
+const limiter = require("./middleware/rateLimiter");
 
 
 // For PROD : Set proper limiter values, remove refresh le app from searchbar.
-// app.use(limiter);
+app.use(limiter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(
+    cors({
+      allowedHeaders: ["authorization", "Content-Type"], // you can change the headers
+      exposedHeaders: ["authorization"], // you can change the headers
+      origin: "*",
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      preflightContinue: false
+    })
+);
 
 let lastPostNumber = 0;
 try {
