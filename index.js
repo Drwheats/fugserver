@@ -1,25 +1,27 @@
-const express = require("express");
+var express = require("express");
 // server is 3001 for local, 4k for vercel.
 const PORT = process.env.PORT || 4000;
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const pathToJSON = './highscores.json'
-const app = express();
+
 const highScores = require(pathToJSON);
 const pathToImages = './images/Trollface_non-free.png.webp'
-const cors = require('cors');
+var cors = require('cors');
+var app = express();
+app.use(cors());
 
-app.use(cors({
-  origin: '*'
-}));
-
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 // Rate Limiter Below. Needs to be tweaked and must be turned off for testing, and searchbar is broken ofc.
 // const limiter = require("./middleware/rateLimiter");
 
 
 // For PROD : Set proper limiter values, remove refresh le app from searchbar.
 // app.use(limiter);
-app.use(cors({ credentials: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
