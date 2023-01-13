@@ -7,7 +7,7 @@ const fs = require("fs");
 const pathToJSON = './highscores.json'
 const app = express();
 const highScores = require(pathToJSON);
-// const pathToImages = './server/images/Trollface_non-free.png.webp'
+const pathToImages = './images/Trollface_non-free.png.webp'
 // Rate Limiter Below. Needs to be tweaked and must be turned off for testing, and searchbar is broken ofc.
 // const limiter = require("./middleware/rateLimiter");
 
