@@ -8,6 +8,11 @@ const pathToJSON = './highscores.json'
 const app = express();
 const highScores = require(pathToJSON);
 const pathToImages = './images/Trollface_non-free.png.webp'
+const cors = require('cors');
+app.use(cors({
+  origin: '*'
+}));
+
 // Rate Limiter Below. Needs to be tweaked and must be turned off for testing, and searchbar is broken ofc.
 // const limiter = require("./middleware/rateLimiter");
 
